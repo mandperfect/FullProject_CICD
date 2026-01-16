@@ -3,7 +3,7 @@ pipeline {
 
     environment {
             DOCKERHUB_USER = "mandperfect"
-            IMAGE_NAME = "FullProject_CICD"
+            IMAGE_NAME = "fullpipeline"
             IMAGE_TAG = "2.0"
         }
 
