@@ -26,7 +26,7 @@ pipeline {
 
         stage('Scan Image') {
             steps {
-                sh " trivy $IMAGE_NAME:$IMAGE_TAG"
+                sh " trivy image $IMAGE_NAME:$IMAGE_TAG"
             }
         }       
 
