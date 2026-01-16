@@ -2,12 +2,18 @@ pipeline {
     agent any
 
     stages {
-        stage("Clone Code") {
+        stage("Clone Code from base") {
             steps {
                 echo "Cloning the code"
                 git url: "https://github.com/mandperfect/FullProject_CICD.git", branch: "main"
             }
         }
+
+        //environment {
+            //DOCKERHUB_USER = "mandperfect"
+            //IMAGE_NAME = "FullProject_CICD"
+            //IMAGE_TAG = "2.0"
+        //}
 
         stage("Build") {
             steps {
