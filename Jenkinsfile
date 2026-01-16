@@ -24,11 +24,16 @@ pipeline {
             }
         }
 
-        stage('Scan Image') {
-            steps {
-                sh " trivy image $IMAGE_NAME:$IMAGE_TAG"
-            }
-        }       
+    stage("Image Scan") {
+        steps {
+            sh """
+               docker run --rm \
+              -v /var/run/docker.sock:/var/run/docker.sock \
+              aquasec/trivy:latest \
+              image fullpipeline:2.0
+            """
+        }
+    }      
 
          stage('Login to Docker Hub') {
             steps {
