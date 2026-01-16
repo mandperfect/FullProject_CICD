@@ -20,7 +20,7 @@ pipeline {
         stage("Build") {
             steps {
                 echo "Building the Docker image"
-                sh "docker build -t mandperfect/pipeline:latest ."
+                sh "docker build -t $DOCKERHUB_USER/$IMAGE_NAME:$IMAGE_TAG ."
             }
         }
 
