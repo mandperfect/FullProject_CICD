@@ -24,7 +24,11 @@ pipeline {
             }
         }
 
-       
+        stage('Scan Image') {
+            steps {
+                sh " trivy $IMAGE_NAME:$IMAGE_TAG"
+            }
+        }       
 
          stage('Login to Docker Hub') {
             steps {
