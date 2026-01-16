@@ -19,7 +19,8 @@ pipeline {
             steps {
                 echo "Building the Docker image"
                 //sh "docker build -t pipeline ."
-                sh "docker compose up -d --build"
+                //sh "docker compose up -d --build"
+                sh "docker build -t mandperfect/pipeline:latest ."
             }
         }
 
