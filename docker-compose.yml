@@ -1,0 +1,6 @@
+version: "3.3"
+services:
+  web: 
+    image: kevinklein01/pipeline:latest
+    ports:
+      - "8000:8000"
