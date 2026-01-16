@@ -18,7 +18,8 @@ pipeline {
         stage("Build") {
             steps {
                 echo "Building the Docker image"
-                sh "docker build -t pipeline ."
+                //sh "docker build -t pipeline ."
+                sh "docker compose up -d --build"
             }
         }
 
