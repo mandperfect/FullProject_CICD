@@ -1,6 +1,13 @@
 pipeline {
     agent any
 
+    environment {
+            DOCKERHUB_USER = "mandperfect"
+            IMAGE_NAME = "FullProject_CICD"
+            IMAGE_TAG = "2.0"
+        }
+
+
     stages {
         stage("Clone Code from base") {
             steps {
