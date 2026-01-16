@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     stages {
-        stage("Clone Code") {
+        stage("Clone Code from base") {
             steps {
                 echo "Cloning the code"
                 git url: "https://github.com/mandperfect/FullProject_CICD.git", branch: "main"
