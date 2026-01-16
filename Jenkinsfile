@@ -9,6 +9,12 @@ pipeline {
             }
         }
 
+        //environment {
+            //DOCKERHUB_USER = "mandperfect"
+            //IMAGE_NAME = "FullProject_CICD"
+            //IMAGE_TAG = "2.0"
+        //}
+
         stage("Build") {
             steps {
                 echo "Building the Docker image"
