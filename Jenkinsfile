@@ -17,12 +17,7 @@ pipeline {
         }
 
 
-        stage("Build") {
-            steps {
-                echo "Building the Docker image"
-                sh "docker build -t $DOCKERHUB_USER/$IMAGE_NAME:$IMAGE_TAG ."
-            }
-        }
+       
 
          stage('Login to Docker Hub') {
             steps {
