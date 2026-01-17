@@ -54,7 +54,7 @@ pipeline {
                        amazon/aws-cli:2.12.0 \
                        ecr get-login-password --region $AWS_REGION \
                        | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com
-                       ecr create-repository --repository-name $IMAGE_NAME --region $AWS_REGION
+                       amazon/aws-cli:2.12.0 ecr create-repository --repository-name $IMAGE_NAME --region $AWS_REGION
                     '''
                 }
             }
