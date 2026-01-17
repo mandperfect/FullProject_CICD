@@ -16,33 +16,13 @@ pipeline {
             }
         }
 
-     stages {
-        stage('SonarQube Scan (SAST)') {
-            steps {
-                withCredentials([string(credentialsId: 'SONAR_TOKEN', variable: 'SONAR_TOKEN')]) {
-                    echo "Running SonarQube scan"
-                    sh """
-                        docker run --rm \
-                          -v \$(pwd):/usr/src \
-                          -e SONAR_HOST_URL=${SONAR_HOST_URL} \
-                          -e SONAR_LOGIN=${SONAR_TOKEN} \
-                          sonarsource/sonar-scanner-cli \
-                          -Dsonar.projectKey=${SONAR_PROJECT_KEY} \
-                          -Dsonar.sources=. \
-                          -Dsonar.inclusions=Dockerfile,**/*.py \
-                          -Dsonar.exclusions=**/node_modules/**,**/target/**
-                    """
-                }
-            }
-        }
-
         stage('Sonar Quality Gate') {
             steps {
                 timeout(time: 2, unit: 'MINUTES') {
                     waitForQualityGate abortPipeline: true
                 }
             }
-        }
+
 
         stage("Build") {
             steps {
