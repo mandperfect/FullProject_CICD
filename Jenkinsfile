@@ -6,7 +6,7 @@ pipeline {
             IMAGE_NAME = "fullpipeline"
             IMAGE_TAG = "2.0"
             AWS_REGION = "ap-south-1"
-            
+            AWS_ACCOUNT_ID = "889082311301"
         }
 
 
