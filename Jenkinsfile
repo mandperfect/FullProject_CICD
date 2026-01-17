@@ -33,7 +33,7 @@ pipeline {
                           aquasec/trivy:latest image \
                           --severity HIGH,CRITICAL \
                           --exit-code 1 \
-                          ${IMAGE_NAME}:${IMAGE_TAG}
+                          ${DOCKERHUB_USER}/${IMAGE_NAME}:${IMAGE_TAG}
                     '''
                 }
         }
