@@ -62,7 +62,7 @@ pipeline {
      stage('Push Image to ECR') {
             steps {
                 sh '''
-                docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$IMAGE_NAME:$IMAGE_TAG                
+                docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$DOCKERHUB_USER/$IMAGE_NAME:$IMAGE_TAG                
                 '''
             }
         }
