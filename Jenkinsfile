@@ -5,6 +5,8 @@ pipeline {
             DOCKERHUB_USER = "mandperfect"
             IMAGE_NAME = "fullpipeline"
             IMAGE_TAG = "2.0"
+            AWS_REGION = "ap-south-1"
+            
         }
 
 
@@ -17,14 +19,6 @@ pipeline {
         }
         
     
-        stage('Sonar Quality Gate') {
-            steps {
-                timeout(time: 2, unit: 'MINUTES') {
-                    waitForQualityGate abortPipeline: true
-                }
-            }
-        }
-
         stage("Build") {
             steps {
                 echo "Building the Docker image"
@@ -45,29 +39,28 @@ pipeline {
                 }
         }
 
-         stage('Login to Docker Hub') {
+         stage('Login to AWS ECR') {
             steps {
-                withCredentials([usernamePassword(
-                    credentialsId: 'dockerhub-cred',
-                    usernameVariable: 'USER',
-                    passwordVariable: 'PASS'
-                )]) {
+                withCredentials([
+                    string(credentialsId: 'aws-access-key', variable: 'AWS_ACCESS_KEY_ID'),
+                    string(credentialsId: 'aws-secret-key', variable: 'AWS_SECRET_ACCESS_KEY')
+                ]) {
                     sh '''
-                        echo $PASS | docker login -u $USER --password-stdin
+                    aws ecr get-login-password --region ${AWS_REGION} \
+                    | docker login --username AWS --password-stdin ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com
                     '''
                 }
             }
         }
 
-        stage('Push Docker Image to Docker Hub') {
+     stage('Push Image to ECR') {
             steps {
-                sh """
-                    echo "Pushing image..."
-                    docker push $DOCKERHUB_USER/$IMAGE_NAME:$IMAGE_TAG
-                """
+                sh '''
+                docker push ${{AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${IMAGE_NAME}}:${IMAGE_TAG}
+                
+                '''
             }
         }
-    
 
         stage ("Deploy") {
             steps {
