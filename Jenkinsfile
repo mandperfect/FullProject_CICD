@@ -16,6 +16,28 @@ pipeline {
             }
         }
 
+      stage('SonarQube Scan (SAST)') {
+            steps {
+                withSonarQubeEnv('sonarqube-server') {
+                    sh """
+                        sonar-scanner \
+                          -Dsonar.projectKey=fullpipeline \
+                          -Dsonar.sources=. \
+                          -Dsonar.login=${SONAR_TOKEN}
+                    """
+                }
+            }
+        }
+        
+        stage('Sonar Quality Gate') {
+            steps {
+                timeout(time: 2, unit: 'MINUTES') {
+                    waitForQualityGate abortPipeline: true
+                }
+            }
+        }
+        
+
         stage("Build") {
             steps {
                 echo "Building the Docker image"
