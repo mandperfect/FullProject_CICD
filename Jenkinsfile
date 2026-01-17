@@ -15,7 +15,7 @@ pipeline {
                 git url: "https://github.com/mandperfect/FullProject_CICD.git", branch: "main"
             }
         }
-
+    }
         stage('Sonar Quality Gate') {
             steps {
                 timeout(time: 2, unit: 'MINUTES') {
